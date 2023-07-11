@@ -75,12 +75,20 @@ def add_item(args, info, isFolder=True, total_items=0, mediatype="video"):
         if len(cm) > 0:
             li.addContextMenuItems(cm)
 
+    art = {
+            "thumb":  info.get("thumb", "DefaultFolder.png"),
+            "banner": info.get("banner", info.get("thumb", "DefaultFolder.png")),
+            "fanart": info.get("fanart", xbmcvfs.translatePath(args._addon.getAddonInfo("fanart")))
+          }
+    
+    # If an icon is specified, don't set a poster!
+    if ("icon" in info):
+        art["icon"] = info.get("icon", info.get("thumb", "DefaultFolder.png"))
+    else:
+        art["poster"] = info.get("poster", info.get("thumb", "DefaultFolder.png"))
+
     # set media image
-    li.setArt({"thumb":  info.get("thumb",  "DefaultFolder.png"),
-               "poster": info.get("thumb",  "DefaultFolder.png"),
-               "banner": info.get("thumb",  "DefaultFolder.png"),
-               "fanart": info.get("fanart",  xbmcvfs.translatePath(args._addon.getAddonInfo("fanart"))),
-               "icon":   info.get("thumb",  "DefaultFolder.png")})
+    li.setArt(art)
 
     # add item to list
     xbmcplugin.addDirectoryItem(handle     = int(args._argv[1]),

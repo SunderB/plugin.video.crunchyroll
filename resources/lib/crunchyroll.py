@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import random
+import random, os
 import inputstreamhelper
 
 import xbmc
@@ -27,7 +27,6 @@ from . import api
 from . import view
 from . import model
 from . import controller
-
 
 def main(argv):
     """Main function for the addon
@@ -165,62 +164,95 @@ def check_mode(args):
 
 
 def showMainMenue(args):
+    icons_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../media/icons"))
+    xbmc.log(icons_path)
+
     """Show main menu
     """
     view.add_item(args,
                   {"title": args._addon.getLocalizedString(30040),
-                   "mode":  "queue"})
+                   "mode":  "queue",
+                   "thumb": f"{icons_path}/bookmark-white.png",
+                   "icon": f"{icons_path}/bookmark-white.png"})
     view.add_item(args,
                   {"title": args._addon.getLocalizedString(30041),
-                   "mode":  "search"})
+                   "mode":  "search",
+                   "thumb": f"{icons_path}/search-white.png",
+                   "icon": f"{icons_path}/search-white.png"})
     view.add_item(args,
                   {"title": args._addon.getLocalizedString(30042),
-                   "mode":  "history"})
+                   "mode":  "history",
+                   "thumb": f"{icons_path}/clock-history-white.png",
+                   "icon": f"{icons_path}/clock-history-white.png"})
     #view.add_item(args,
     #              {"title": args._addon.getLocalizedString(30043),
     #               "mode":  "random"})
     view.add_item(args,
                   {"title": args._addon.getLocalizedString(30050),
-                   "mode":  "anime"})
+                   "mode":  "anime",
+                   "thumb": f"{icons_path}/tv-white.png",
+                   "icon": f"{icons_path}/tv-white.png"})
     view.add_item(args,
                   {"title": args._addon.getLocalizedString(30051),
-                   "mode":  "drama"})
+                   "mode":  "drama",
+                   "thumb": f"{icons_path}/camera-reels-fill-white.png",
+                   "icon": f"{icons_path}/camera-reels-fill-white.png"})
     view.endofdirectory(args)
 
 
 def showMainCategory(args, genre):
     """Show main category
     """
+    icons_path = os.path.join(os.path.dirname(__file__), "../media/icons")
+    xbmc.log(icons_path)
+
     view.add_item(args,
                   {"title": args._addon.getLocalizedString(30058),
                    "mode":  "featured",
-                   "genre": genre})
+                   "genre": genre,
+                   "thumb": f"{icons_path}/star-white.png",
+                   "icon": f"{icons_path}/star-white.png"})
     view.add_item(args,
                   {"title": args._addon.getLocalizedString(30052),
                    "mode":  "popular",
-                   "genre": genre})
+                   "genre": genre,
+                   "thumb": f"{icons_path}/hand-thumbs-up-white.png",
+                   "icon": f"{icons_path}/hand-thumbs-up-white.png"})
     view.add_item(args,
                   {"title": args._addon.getLocalizedString(30053),
                    "mode":  "simulcast",
-                   "genre": genre})
+                   "genre": genre,
+                   "thumb": f"{icons_path}/broadcast-white.png",
+                   "icon": f"{icons_path}/broadcast-white.png"})
     view.add_item(args,
                   {"title": args._addon.getLocalizedString(30054),
                    "mode":  "updated",
-                   "genre": genre})
+                   "genre": genre,
+                   "thumb": f"{icons_path}/arrow-90deg-up-white.png",
+                   "icon": f"{icons_path}/arrow-90deg-up-white.png"})
     view.add_item(args,
                   {"title": args._addon.getLocalizedString(30059),
                    "mode":  "newest",
-                   "genre": genre})
+                   "genre": genre,
+                   "thumb": f"{icons_path}/stars-white.png",
+                   "icon": f"{icons_path}/stars-white.png"})
     view.add_item(args,
                   {"title": args._addon.getLocalizedString(30055),
                    "mode":  "alpha",
-                   "genre": genre})
+                   "genre": genre,
+                   "thumb": f"{icons_path}/sort-alpha-down-white.png",
+                   "icon": f"{icons_path}/sort-alpha-down-white.png"})
+    
     view.add_item(args,
                   {"title": args._addon.getLocalizedString(30057),
                    "mode":  "season",
-                   "genre": genre})
+                   "genre": genre,
+                   "thumb": f"{icons_path}/calendar2-white.png",
+                   "icon": f"{icons_path}/calendar2-white.png"})
     view.add_item(args,
                   {"title": args._addon.getLocalizedString(30056),
                    "mode":  "genre",
-                   "genre": genre})
+                   "genre": genre,
+                   "thumb": f"{icons_path}/palette2-white.png",
+                   "icon": f"{icons_path}/palette2-white.png"})
     view.endofdirectory(args)
