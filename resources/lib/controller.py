@@ -118,7 +118,8 @@ def searchAnime(args):
                        "genre":       ", ".join(item["genres"]),
                        "year":        item["year"],
                        "studio":      item["publisher_name"],
-                       "thumb":       item["portrait_image"]["full_url"],
+                       "thumb":       item["landscape_image"]["full_url"],
+                       "poster":      item["portrait_image"]["full_url"],
                        "fanart":      item["landscape_image"]["full_url"],
                        "mode":        "series"},
                       isFolder=True)
@@ -145,7 +146,7 @@ def showHistory(args):
                "offset":      int(getattr(args, "offset", 0)),
                "fields":      "media.name,media.media_id,media.collection_id,media.collection_name,media.description,media.episode_number,media.created, \
                                media.screenshot_image,media.premium_only,media.premium_available,media.available,media.premium_available,media.duration,media.playhead, \
-                               series.series_id,series.year,series.publisher_name,series.rating,series.genres,series.landscape_image"}
+                               series.series_id,series.year,series.publisher_name,series.rating,series.genres,series.portrait_image,series.landscape_image"}
     req = api.request(args, "recently_watched", payload)
 
     # check for error
@@ -179,7 +180,9 @@ def showHistory(args):
                        "studio":        item["series"]["publisher_name"],
                        "rating":        int(item["series"]["rating"])/10.0,
                        "thumb":         (item["media"]["screenshot_image"]["fwidestar_url"] if item["media"]["premium_only"] else item["media"]["screenshot_image"]["full_url"]) if item["media"]["screenshot_image"] else "",
-                       "fanart":        item["series"]["landscape_image"]["full_url"],
+                       "poster":        item["series"]["portrait_image"]["full_url"],
+                       "fanart":        (item["media"]["screenshot_image"]["fwidestar_url"] if item["media"]["premium_only"] else item["media"]["screenshot_image"]["full_url"]) if item["media"]["screenshot_image"] else "",
+                       "fanart1":       item["series"]["landscape_image"]["full_url"],
                        "mode":          "videoplay"},
                       isFolder=False)
 
@@ -226,6 +229,7 @@ def listSeries(args, mode):
                        "year":        item["year"],
                        "studio":      item["publisher_name"],
                        "thumb":       item["portrait_image"]["full_url"],
+                       "poster":       item["portrait_image"]["full_url"],
                        "fanart":      item["landscape_image"]["full_url"],
                        "mode":        "series"},
                       isFolder=True)
@@ -303,6 +307,7 @@ def viewSeries(args):
                        "aired":         item["created"][:10],
                        "premiered":     item["created"][:10],
                        "status":        u"Completed" if item["complete"] else u"Continuing",
+                       "poster":        item["portrait_image"]["full_url"] if item["portrait_image"] else args.poster,
                        "thumb":         item["portrait_image"]["full_url"] if item["portrait_image"] else args.thumb,
                        "fanart":        item["landscape_image"]["full_url"] if item["landscape_image"] else args.fanart,
                        "mode":          "episodes"},
@@ -320,7 +325,7 @@ def viewEpisodes(args):
                "limit":         30,
                "offset":        int(getattr(args, "offset", 0)),
                "fields":        "media.name,media.media_id,media.collection_id,media.collection_name,media.description,media.episode_number,media.created,media.series_id, \
-                                 media.screenshot_image,media.premium_only,media.premium_available,media.available,media.premium_available,media.duration,media.playhead"}
+                                 media.screenshot_image,media.premium_only,media.premium_available,media.available,media.premium_available,media.duration,media.playhead,series.portrait_image"}
     req = api.request(args, "list_media", payload)
 
     # check for error
@@ -345,8 +350,10 @@ def viewEpisodes(args):
                        "plotoutline":   item["description"],
                        "aired":         item["created"][:10],
                        "premiered":     item["created"][:10],
+                       "poster":        args.poster,
                        "thumb":         (item["screenshot_image"]["fwidestar_url"] if item["premium_only"] else item["screenshot_image"]["full_url"]) if item["screenshot_image"] else "",
                        "fanart":        args.fanart,
+                       "fanart1":       (item["screenshot_image"]["fwidestar_url"] if item["premium_only"] else item["screenshot_image"]["full_url"]) if item["screenshot_image"] else "",
                        "mode":          "videoplay"},
                       isFolder=False)
 
