@@ -352,8 +352,8 @@ def viewEpisodes(args):
                        "premiered":     item["created"][:10],
                        "poster":        args.poster,
                        "thumb":         (item["screenshot_image"]["fwidestar_url"] if item["premium_only"] else item["screenshot_image"]["full_url"]) if item["screenshot_image"] else "",
-                       "fanart":        args.fanart,
-                       "fanart1":       (item["screenshot_image"]["fwidestar_url"] if item["premium_only"] else item["screenshot_image"]["full_url"]) if item["screenshot_image"] else "",
+                       "fanart1":        args.fanart,
+                       "fanart":       (item["screenshot_image"]["fwidestar_url"] if item["premium_only"] else item["screenshot_image"]["full_url"]) if item["screenshot_image"] else "",
                        "mode":          "videoplay"},
                       isFolder=False)
 
